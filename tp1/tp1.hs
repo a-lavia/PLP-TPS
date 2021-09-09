@@ -38,8 +38,11 @@ etiquetas = foldRose (\x xs -> foldr (\y ys -> y++ys) [] (map (\n -> fst n : snd
 ramas :: RTE a -> [String]
 ramas = foldRose (\x xs -> [(fst y:ys) | y <- xs, ys <- (if null (snd y) then [[]] else (snd y))])
 
+nivelesRose :: RTE a -> RTE (a, Int)
+nivelesRose r = foldRose (\x xs -> Rose (x, 1) (zip (map fst xs) (map (mapRTE (\r -> (fst r, (snd r)+1))) (map snd xs)))) r
+
 subRose :: RTE a -> Int -> RTE a
-subRose = undefined
+subRose r h = foldRose (\x xs -> if snd x >= h then Rose (fst x) [] else Rose (fst x) xs) (nivelesRose r)
 
 tests :: IO Counts
 tests = do runTestTT allTests
