@@ -33,7 +33,7 @@ altura :: RTE a -> Int
 altura = foldRose (\x xs -> if null xs then 1 else 1 + (maximum (map snd xs)))
 
 etiquetas :: RTE a -> [Char]
-etiquetas = foldRose (\x xs -> foldr (\y ys -> y++ys) [] (map (\n -> fst n : snd n) xs))
+etiquetas = foldRose (\x xs -> foldr (++) [] (map (\n -> fst n : snd n) xs))
 
 ramas :: RTE a -> [String]
 ramas = foldRose (\x xs -> [(fst y:ys) | y <- xs, ys <- (if null (snd y) then [[]] else (snd y))])
