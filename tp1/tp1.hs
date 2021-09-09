@@ -1,5 +1,5 @@
 import Test.HUnit
-import Data.List (sort)
+import Data.List
 
 
 data RTE a = Rose a [(Char,RTE a)]
@@ -11,11 +11,8 @@ instance Show a => Show (RTE a) where
 
 --------------Resolver--------------
 
-apariciones :: Eq a => a -> [a] -> Int
-apariciones x = foldr (\y acc -> if y /= x then acc else (acc + 1)) 0
-
 mismos :: Eq a => [a] -> [a] -> Bool
-mismos xs ys = foldr (\x acc -> x `elem` ys && acc && (apariciones x xs == apariciones x ys)) True xs && length xs == length ys
+mismos xs ys = null (xs \\ ys) && null (ys \\ xs)
 
 instance Eq a => Eq (RTE a) where
   (==) (Rose x xs) (Rose y ys) = x == y && mismos xs ys
@@ -42,7 +39,7 @@ nivelesRose :: RTE a -> RTE (a, Int)
 nivelesRose r = foldRose (\x xs -> Rose (x, 1) (zip (map fst xs) (map (mapRTE (\r -> (fst r, (snd r)+1))) (map snd xs)))) r
 
 subRose :: RTE a -> Int -> RTE a
-subRose r h = foldRose (\x xs -> if snd x >= h then Rose (fst x) [] else Rose (fst x) xs) (nivelesRose r)
+subRose r h = foldRose (\x xs -> Rose (fst x) (if snd x >= h then [] else xs)) (nivelesRose r)
 
 tests :: IO Counts
 tests = do runTestTT allTests
@@ -64,8 +61,6 @@ otroRoseMas = Rose 1 [('d',Rose 5 [('e', Rose 6 [('b', Rose 3 [])])]), ('a',Rose
 otroRoseMasPodado = Rose 1 [('d', Rose 5 []), ('a', Rose 2 [])]
 
 testsEj1 = test [
-  3 ~=? apariciones 1 [1,2,1,1],
-  0 ~=? apariciones 1 [2,3,4],
   True ~=? mismos [1,2,3] [3,1,2],
   False ~=? mismos [1,2] [1,2,3],
   True ~=? mismos "abcd" "adcb",
