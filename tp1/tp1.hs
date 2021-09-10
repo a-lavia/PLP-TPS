@@ -21,7 +21,7 @@ foldRose :: (a -> [(Char, b)] -> b) -> RTE a -> b
 foldRose f (Rose x hijos) = f x (map (\(e,r) -> (e, foldRose f r)) hijos)
 
 mapRTE :: (a -> b) -> RTE a -> RTE b
-mapRTE f r = foldRose (\x xs -> Rose (f x) xs) r
+mapRTE f = foldRose (\x xs -> Rose (f x) xs)
 
 nodos :: RTE a -> [a]
 nodos = foldRose (\x xs -> x:(foldr (++) [] (map snd xs)))
@@ -33,10 +33,10 @@ etiquetas :: RTE a -> [Char]
 etiquetas = foldRose (\x xs -> foldr (++) [] (map (\n -> fst n : snd n) xs))
 
 ramas :: RTE a -> [String]
-ramas = foldRose (\x xs -> [(fst y:ys) | y <- xs, ys <- (if null (snd y) then [[]] else (snd y))])
+ramas = foldRose (\x xs -> [(fst y:ys) | y <- xs, ys <- (if null (snd y) then [""] else (snd y))])
 
 nivelesRose :: RTE a -> RTE (a, Int)
-nivelesRose r = foldRose (\x xs -> Rose (x, 1) (zip (map fst xs) (map (mapRTE (\r -> (fst r, (snd r)+1))) (map snd xs)))) r
+nivelesRose = foldRose (\x xs -> Rose (x, 1) [(e, mapRTE (\(nodo, nivel) -> (nodo, nivel+1)) r) | (e, r) <- xs])
 
 subRose :: RTE a -> Int -> RTE a
 subRose r h = foldRose (\x xs -> Rose (fst x) (if snd x >= h then [] else xs)) (nivelesRose r)
