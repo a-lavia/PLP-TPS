@@ -21,46 +21,129 @@ let ditto;
 // Ejercicio 1
 function ejercicio1() {
     // Completar
-    bulbasaur = undefined;
-    pikachu = undefined;
+    bulbasaur = {
+      hp: 300,
+      ataquePlacaje: function(pokemon) {
+        pokemon.hp -= 10;
+      },
+      ataqueLatigoCepa: function(pokemon) {
+        pokemon.hp -= 10;
+      }
+    };
+    pikachu = {
+      hp: 250,
+      ataqueImpactrueno: function(pokemon) {
+        pokemon.hp -= 10;
+      }
+    };
 }
 
 // Ejercicio 2
 function ejercicio2() {
     // Completar
-    raichu = undefined;
-    pichu = undefined;
+    //a)
+    raichu = Object.create(pikachu);
+    raichu.hp = 300;
+    raichu.ataqueGolpeTrueno = function(pokemon) {
+      pokemon.hp -= 30;
+    };
+
+    //b)
+    pichu = { hp: 100 };
+    Object.setPrototypeOf(pikachu, pichu);
+
+    //c)
+    pichu.tipo = tipoElectrico;
+    bulbasaur.tipo = tipoPlanta;
 }
 
 // Ejercicio 3
 function ejercicio3() {
     // Completar
-    Pokemon = undefined;
-    charmander = undefined;
+
+    //a)
+    Pokemon = function(hp, ataques, tipo) {
+      this.hp = hp;
+      this.tipo = tipo;
+      Object.assign(this, ataques);
+    };
+
+    //b)
+    charmander = new Pokemon(200, {ataqueAscuas: (pokemon) => { pokemon.hp -= 10 } }, tipoFuego);
+
+    //c)
+    Object.setPrototypeOf(pichu, Pokemon.prototype);
+    Object.setPrototypeOf(bulbasaur, Pokemon.prototype);
+
+    //d)
+    Pokemon.prototype.atacar = function(ataque, oponente) {
+      if(ataque in this){
+        this[ataque](oponente);
+      } else {
+          this.hp -= 10;
+      }
+    };
 }
 
 // Ejercicio 4
 function ejercicio4() {
     // Completar
+    //a)
+    Pokemon.prototype.nuevoAtaque = function(nombreAtaque, ataque) {
+      this[nombreAtaque] = ataque;
+    };
+
+    //b)
+    pikachu.nuevoAtaque("ataqueOndaTrueno", function(oponente){oponente.hp = Math.floor(oponente.hp/2);});
 }
 
 // Ejercicio 5
 function ejercicio5() {
     // Completar
-    charmeleon = undefined;
-    charizard = undefined;
+    //a)
+    Pokemon.prototype.evolucionar = function() {
+      let evolucion = Object.create(this);
+      evolucion.hp *= 2;
+      return evolucion;
+    };
+
+    //b)
+    charmeleon = charmander.evolucionar();
+    charizard = charmeleon.evolucionar();
 }
 
 // Ejercicio 6
 function ejercicio6() {
     // Completar
-    peleaPokemon = undefined;
+    //a)
+    Pokemon.prototype.algunAtaque = function() {
+      let ataques = Object.keys(this).filter(key => key.startsWith("ataque"));
+      return ataques[Math.floor(Math.random()*ataques.length)];
+    };
+
+    //b)
+    peleaPokemon = function(pokemon1, pokemon2) {
+      while(true) {
+        pokemon1.atacar(pokemon1.algunAtaque(), pokemon2);
+        if (pokemon2.hp <= 0) {
+          return pokemon1;
+        }
+        pokemon2.atacar(pokemon2.algunAtaque(), pokemon1);
+        if (pokemon1.hp <= 0) {
+          return pokemon2;
+        }
+      }
+    };
 }
 
 // Ejercicio 7
 function ejercicio7() {
     // Completar
-    ditto = undefined;
+    let ataqueCopiar = function(oponente) {
+      let ataqueCopiado = oponente.algunAtaque();
+      this[ataqueCopiado] = oponente[ataqueCopiado];
+    }
+    ditto = new Pokemon(100, {ataqueCopiar}, tipoNormal);
 }
 
 // Test Ejercicio 1
