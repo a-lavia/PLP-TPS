@@ -213,7 +213,19 @@ function testEjercicio3(res) {
   res.write(`Pidgey intenta atacar a Raichu con un ataque que no conoce, pero termina con hp de ${pidgey.hp},`, pidgey.hp == 180);
   let raichuConMismoHp = raichu.hp == 300;
   res.write(`y el hp de Raichu ${si_o_no(!raichuConMismoHp)} se ve afectado.`, raichuConMismoHp);
-  //Completar
+
+  res.write(`Charmander tiene ${charmander.hp} de hp`, charmander.hp == 200)
+  charmander.ataqueAscuas(pidgey);
+  res.write(`Pidgey es atacado por Charmander con Ascuas, y ahora tiene un hp de ${pidgey.hp},`, pidgey.hp == 140);
+
+  let bulbasaurIsPokemon = Pokemon.prototype.isPrototypeOf(bulbasaur);
+  res.write(`Bulbasaur ${si_o_no(bulbasaurIsPokemon)} se comporta como si hubiese sido creado por la función constructora.`, bulbasaurIsPokemon);
+  let pichuIsPokemon = Pokemon.prototype.isPrototypeOf(pichu);
+  res.write(`Pichu ${si_o_no(pichuIsPokemon)} se comporta como si hubiese sido creado por la función constructora.`, pichuIsPokemon);
+  let pikachuIsPokemon = Pokemon.prototype.isPrototypeOf(pikachu);
+  res.write(`Pikachu ${si_o_no(pikachuIsPokemon)} se comporta como si hubiese sido creado por la función constructora.`, pikachuIsPokemon);
+  let raichuIsPokemon = Pokemon.prototype.isPrototypeOf(raichu);
+  res.write(`Raichu ${si_o_no(raichuIsPokemon)} se comporta como si hubiese sido creado por la función constructora.`, raichuIsPokemon);
 }
 
 // Test Ejercicio 4
