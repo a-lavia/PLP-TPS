@@ -157,7 +157,10 @@ function testEjercicio1(res) {
   res.write(`\n Creamos a Squirtle, con ${squirtle.hp} de hp.`);
   bulbasaur.ataquePlacaje(squirtle);
   res.write(`Después de ser atacado una vez por Bulbasaur, el hp de Squirtle es de ${squirtle.hp}.`, squirtle.hp === 190);
-  //Completar
+  bulbasaur.ataqueLatigoCepa(squirtle);
+  res.write(`Después de ser atacado por segunda vez por Bulbasaur, el hp de Squirtle es de ${squirtle.hp}.`, squirtle.hp === 180);
+  pikachu.ataqueImpactrueno(squirtle);
+  res.write(`Después de ser atacado una vez por Pikachu, el hp de Squirtle es de ${squirtle.hp}.`, squirtle.hp === 170);
 }
 
 // Test Ejercicio 2
