@@ -238,7 +238,16 @@ function testEjercicio4(res) {
   res.write(`Pichu ${si_o_no(pichuConoceOndaTrueno)} puede atacar usando ondaTrueno,`, !pichuConoceOndaTrueno);
   let raichuConoceOndaTrueno = raichu.ataqueOndaTrueno == pikachu.ataqueOndaTrueno;
   res.write(`y Raichu ${si_o_no(raichuConoceOndaTrueno)} puede.`, raichuConoceOndaTrueno);
-  //Completar
+
+  ekans.nuevoAtaque("ataquePrueba", function(oponente){
+    oponente.hp -= 11;
+  });
+  ekans.atacar("ataquePrueba", raichu);
+  res.write(`Ekans ataca con nuevo ataque de prueba a Raichu dejándolo con ${raichu.hp} de hp.`, raichu.hp == 289);
+
+  raichu.atacar("ataqueOndaTrueno", ekans);
+  res.write(`Atacar a Ekans con el nuevo ataque ondaTrueno le deja ${ekans.hp} de hp.`, ekans.hp == 62);
+
 }
 
 // Test Ejercicio 5
