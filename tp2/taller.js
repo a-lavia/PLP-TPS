@@ -262,13 +262,31 @@ function testEjercicio5(res) {
   let charmeleonConoceAscuasEmber = charmeleon.ataqueAscuasEmber == charmander.ataqueAscuasEmber;
   res.write(`Charmeleon ${si_o_no(charmeleonConoceAscuasEmber)} puede atacar con ascuasEmber,`, charmeleonConoceAscuasEmber);
   let charizardConoceAscuasEmber = charizard.ataqueAscuasEmber  == charmander.ataqueAscuasEmber;
-  res.write("Charizard también.", charizard.ataqueAscuasEmber  == charmander.ataqueAscuasEmber);
+  res.write("Charizard también.", charizardConoceAscuasEmber);
 
   res.write(`\n Charmeleon aprende lanzallamas.`);
   charmeleon.nuevoAtaque("ataqueLanzallamas", function(otroPoke){otroPoke.hp -= 10});
   let charmanderConoceLanzallamas = 'ataqueLanzallamas' in charmander;
   res.write(`Charmander ${si_o_no(charmanderConoceLanzallamas)} conoce el ataque lanzallamas de Charmeleon.`, !charmanderConoceLanzallamas);
-  //Completar
+
+  let ivysaur = bulbasaur.evolucionar();
+  let ivysaurTieneDobleHp = ivysaur.hp == 2*bulbasaur.hp;
+  res.write(`Ivysaur ${si_o_no(ivysaurTieneDobleHp)} tiene el doble de hp de Charmander.`, ivysaurTieneDobleHp);
+  let venusaur = ivysaur.evolucionar();
+  let venusaurTieneCuadrupleHp = venusaur.hp == 4*bulbasaur.hp;
+  res.write(`Venusaur ${si_o_no(venusaurTieneCuadrupleHp)} tiene cuatro veces el hp de Charmander.`, venusaurTieneCuadrupleHp);
+
+  res.write(`\n Bulbasaur aprende hojaAfilada.`);
+  bulbasaur.nuevoAtaque("ataqueHojaAfilada", function(otroPoke){otroPoke.hp -= 10});
+  let ivysaurConoceHojaAfilada = ivysaur.ataqueHojaAfilada == ivysaur.ataqueHojaAfilada;
+  res.write(`Ivysaur ${si_o_no(ivysaurConoceHojaAfilada)} puede atacar con hojaAfilada,`, ivysaurConoceHojaAfilada);
+  let venusaurConoceHojaAfilada = venusaur.ataqueHojaAfilada  == bulbasaur.ataqueHojaAfilada;
+  res.write("Venusaur también.", venusaurConoceHojaAfilada);
+
+  res.write(`\n Ivysaur aprende dulceAroma.`);
+  ivysaur.nuevoAtaque("ataqueDulceAroma", function(otroPoke){otroPoke.hp -= 10});
+  let bulbasaurConoceDulceAroma = 'ataqueDulceAroma' in bulbasaur;
+  res.write(`Charmander ${si_o_no(bulbasaurConoceDulceAroma)} conoce el ataque lanzallamas de Charmeleon.`, !bulbasaurConoceDulceAroma);
 }
 
 // Test Ejercicio 6
