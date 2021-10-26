@@ -145,7 +145,7 @@ function ejercicio7() {
       let ataqueCopiado = oponente.algunAtaque();
       this[ataqueCopiado] = oponente[ataqueCopiado];
     }
-    ditto = new Pokemon(100, {ataqueCopiar}, tipoNormal);
+    ditto = new Pokemon(100, { ataqueCopiar }, tipoNormal);
 }
 
 // Test Ejercicio 1
@@ -308,13 +308,19 @@ function testEjercicio6(res) {
   let elGanadorEsMagikarp = 'ataqueSalpicadura' in ganador;
   res.write(`Pelean Kakuna y Magikarp, el ganador ${si_o_no(elGanadorEsMagikarp)} es Magikarp.`, elGanadorEsMagikarp);
   res.write(`El hp de Kakuna después de pelear es ${kakuna.hp}.`, kakuna.hp == 0);
-  // Completar
+
 }
 
 // Test Ejercicio 7
 function testEjercicio7(res) {
+  res.write(`El hp de Ditto es ${ditto.hp}.`, ditto.hp === 100);
+  res.write(`El tipo de Ditto es ${ditto.tipo}.`, ditto.tipo === tipoNormal);
+
   let dittoConoceCopiar = 'ataqueCopiar' in ditto;
   res.write(`Ditto ${si_o_no(dittoConoceCopiar)} conoce el ataque copiar.`, dittoConoceCopiar);
+
+  let copiarUnicoAtaqueDitto = Object.keys(ditto).length == 3 && dittoConoceCopiar;
+  res.write(`Copiar ${si_o_no(copiarUnicoAtaqueDitto)} es el único ataque que conoce Ditto.`, copiarUnicoAtaqueDitto)
 
   res.write("\n Creamos a Butterfree, que conoce el ataque polvoVeneno.");
   let butterfree = new Pokemon(100, {ataquePolvoVeneno: function(oponente){oponente.hp -= 10;}}, tipoBicho);
@@ -322,7 +328,7 @@ function testEjercicio7(res) {
   ditto.ataqueCopiar(butterfree);
   let dittoConocePolvoVeneno = 'ataquePolvoVeneno' in ditto;
   res.write(`Ahora Ditto ${si_o_no(dittoConocePolvoVeneno)} conoce el ataque polvoVeneno.`, dittoConocePolvoVeneno);
-  // Completar
+
 }
 
 // Función auxiliar que crea un test genérico a partir de un número i y una función f
