@@ -182,9 +182,17 @@ function testEjercicio2(res) {
     res.write(`pero ${si_o_no(pikachuConocePararrayoAhora)} lo tiene definido una vez que se le define a Pichu.`, pikachuConocePararrayoAhora);
     let raichuConocePararrayo = raichu.ataquePararrayo == pichu.ataquePararrayo;
     res.write(`Raichu ${si_o_no(raichuConocePararrayo)} conoce pararrayo.`, raichuConocePararrayo);
+    let pichuEsDeTipoElectrico = pichu.tipo == tipoElectrico;
+    res.write(`Pichu ${si_o_no(pichuEsDeTipoElectrico)} es de tipo eléctrico.`, pichuEsDeTipoElectrico);
     let pikachuEsDeTipoElectrico = pikachu.tipo == tipoElectrico;
     res.write(`Pikachu ${si_o_no(pikachuEsDeTipoElectrico)} es de tipo eléctrico como Pichu.`, pikachuEsDeTipoElectrico);
-    //Completar
+    let raichuEsDeTipoElectrico = raichu.tipo == tipoElectrico;
+    res.write(`Raichu ${si_o_no(raichuEsDeTipoElectrico)} es de tipo eléctrico como Pichu.`, raichuEsDeTipoElectrico);
+
+    raichu.ataquePararrayo(caterpie);
+    res.write(`Raichu vuelve a atacar, ahora usando ataquePararrayo. El hp de Caterpie es ${caterpie.hp}.`, caterpie.hp === 50);
+    pikachu.ataquePararrayo(caterpie);
+    res.write(`Pikachu ataca con ataquePararrayo, el hp de Caterpie es ${caterpie.hp}.`, caterpie.hp === 40);
 }
 
 // Test Ejercicio 3
