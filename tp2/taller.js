@@ -69,7 +69,7 @@ function ejercicio3() {
     };
 
     //b)
-    charmander = new Pokemon(200, {ataqueAscuas: (pokemon) => { pokemon.hp -= 10 } }, tipoFuego);
+    charmander = new Pokemon(200, { ataqueAscuas: (pokemon) => { pokemon.hp -= 40 } }, tipoFuego);
 
     //c)
     Object.setPrototypeOf(pichu, Pokemon.prototype);
