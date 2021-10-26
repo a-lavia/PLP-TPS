@@ -94,7 +94,9 @@ function ejercicio4() {
     };
 
     //b)
-    pikachu.nuevoAtaque("ataqueOndaTrueno", function(oponente){oponente.hp = Math.floor(oponente.hp/2);});
+    pikachu.nuevoAtaque("ataqueOndaTrueno", function(oponente){
+      oponente.hp = Math.floor(oponente.hp/2);
+    });
 }
 
 // Ejercicio 5
